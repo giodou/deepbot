@@ -2,6 +2,7 @@ import React from "react";
 import { Route, BrowserRouter, Redirect } from "react-router-dom";
 import Login from "./public/Login/Login";
 import Settings from "./private/Settings";
+import Dashboard from "./components/Dashboard/Dashboard";
 
 
 function Routes(){
@@ -21,6 +22,9 @@ function Routes(){
                 <Login />
             </Route>
             <PrivateRoute path="/settings">
+                <Settings />
+            </PrivateRoute>
+            <PrivateRoute path="/dashboard">
                 <Settings />
             </PrivateRoute>
         </BrowserRouter>
