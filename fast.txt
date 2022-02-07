@@ -1,8 +1,0 @@
-API Key: GTtZqLhzfBvRHngGK6fGVOVOp30nM8XKKebdw6O9WVqCjZ45rffACcf2xbzuwVq8
-Secret Key: E1lZ670DflSDaAFSPoFYh13P3STpJ1ZJLp81bjTqoozbPO5ceEFwHZH6kUm58Icf
-
-
-Spot API URL	Spot Test Network URL
-https://api.binance.com/api	https://testnet.binance.vision/api
-wss://stream.binance.com:9443/ws	wss://testnet.binance.vision/ws
-wss://stream.binance.com:9443/stream	wss://testnet.binance.vision/stream

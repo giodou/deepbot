@@ -1,1 +1,0 @@
-console.log("Heelo, im deep bot! Nice to meet you");

@@ -22,10 +22,13 @@ function Login() {
         event.preventDefault();
 
         doLogin(email, pass)
-            .then(isValid => {
+            .then(response => {
+                localStorage.setItem('token', response.token);
                 history.push('/settings');
             }).catch(err =>{
-                setError(err);
+                localStorage.removeItem('token');
+                console.log(err);
+                setError(`Invalid user or pass!`);
             });
     }
 
