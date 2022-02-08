@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import SidebarItem from "./SideBarItem";
+import SidebarItem from "./SidebarItem";
 import { doLogout } from '../../services/AuthService';
 
 function Sidebar() {

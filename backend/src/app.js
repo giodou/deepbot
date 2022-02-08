@@ -18,6 +18,7 @@ app.use(express.json());
 app.post('/login', authController.doLogin);
 
 app.get('/settings', authMiddleware, settings.getSettings);
+app.patch('/settings', authMiddleware, settings.updateSettings);
 
 app.post('/logout', authController.doLogout);
 
