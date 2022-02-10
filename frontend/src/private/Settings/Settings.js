@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import { getSettings, updateSettings } from '../services/SettingsService';
-import Menu from '../components/Menu/Menu';
+import { getSettings, updateSettings } from '../../services/SettingsService';
+import Menu from '../../components/Menu/Menu';
 
 function Settings() {
 

@@ -1,11 +1,11 @@
 import React from "react";
 import { Route, BrowserRouter, Redirect } from "react-router-dom";
 import Login from "./public/Login/Login";
-import Settings from "./private/Settings";
+import Settings from "./private/Settings/Settings";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Orders from "./private/Orders";
 import Automations from "./private/Automations";
-
+import Symbols from "./private/Symbols/Symbols";
 
 function Routes(){
     function PrivateRoute({children, ...rest}){
@@ -34,6 +34,9 @@ function Routes(){
             </PrivateRoute>
             <PrivateRoute path="/automations">
                 <Automations />
+            </PrivateRoute>
+            <PrivateRoute path="/symbols">
+                <Symbols />
             </PrivateRoute>
             
         </BrowserRouter>
