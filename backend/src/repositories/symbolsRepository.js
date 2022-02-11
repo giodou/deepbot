@@ -30,13 +30,18 @@ async function updateSymbol(symbol, newSymbol) {
     await currentSymbol.save();
 }
 
-async function syncSimbols(){
+async function deleteAll(){
+    return symbolModel.destroy({truncate: true});
+}
 
+async function bulkInsert(symbols){
+    return symbolModel.bulkCreate(symbols);
 }
 
 module.exports = {
     getSymbol,
     getSymbols,
     updateSymbol,
-    syncSimbols
+    deleteAll,
+    bulkInsert
 }

@@ -13,3 +13,10 @@ export async function getSymbol(symbol, token) {
     const response = await axios.get(`${SYMBOLS_URL}/${symbol}`, { headers });
     return response.data;
 }
+
+export async function syncSymbols(token) {
+    const headers = { 'authorization': token };
+    console.log('tok:', token);
+    const response = await axios.post(`${SYMBOLS_URL}/sync`, {}, { headers });
+    return response.data;
+}
