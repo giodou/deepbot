@@ -22,7 +22,7 @@ function SymbolRow(props) {
             <td className="text-gray-900" scope="col">{props.data.minNotional}</td>
             <td className="text-gray-900" scope="col">{props.data.minLoteSize}</td>
             <td className="text-gray-900" scope="col">
-                <button id={"edit"+props.data.symbol} className="btn btn-secondary animate-up-2" width={32} >
+                <button id={"edit"+props.data.symbol} className="btn btn-secondary animate-up-2" width={32} data-bs-toggle="modal" data-bs-target="#modalSymbol" >
                     <svg id={"edit"+props.data.symbol} xmlns="http://www.w3.org/2000/svg" className="icon icon-xs" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                     </svg>

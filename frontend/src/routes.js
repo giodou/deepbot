@@ -2,7 +2,7 @@ import React from "react";
 import { Route, BrowserRouter, Redirect } from "react-router-dom";
 import Login from "./public/Login/Login";
 import Settings from "./private/Settings/Settings";
-import Dashboard from "./components/Dashboard/Dashboard";
+import Dashboard from "./private/Dashboard/Dashboard";
 import Orders from "./private/Orders";
 import Automations from "./private/Automations";
 import Symbols from "./private/Symbols/Symbols";

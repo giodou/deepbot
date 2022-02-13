@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 import Menu from "../../components/Menu/Menu";
 import { getSymbols, syncSymbols } from '../../services/SymbolsService'
 import SymbolRow from "./SymbowRow";
+import SelectQuote, { getDefaultQuote, filterSymbolObject, setDefaultQuote } from "../../components/SelectQuote/SelectQuote";
+import SymbolModal from "./SymbolModal";
 
 function Symbols() {
 
@@ -10,6 +12,7 @@ function Symbols() {
 
     const [symbols, setSymbols] = useState([]);
     const [error, setError] = useState('');
+    const [quote, setQuote] = useState(getDefaultQuote());
     const [success, setSuccess] = useState('');
     const [isSyncing, setIsSyncing] = useState(false);
 
@@ -17,8 +20,7 @@ function Symbols() {
         const token = localStorage.getItem('token');
         getSymbols(token)
             .then(response => {
-                console.log('symbols: ', response)
-                setSymbols(response);
+                setSymbols(filterSymbolObject(response, quote));
                 setError('');
             })
             .catch(err => {
@@ -28,9 +30,9 @@ function Symbols() {
                 setSuccess('');
                 setError(err.response ? err.response.data : err.message);
             })
-    }, [isSyncing]);
-    
-    function onSyncClick(event){
+    }, [isSyncing, quote]);
+
+    function onSyncClick(event) {
         const token = localStorage.getItem('token');
         setIsSyncing(true);
 
@@ -48,12 +50,18 @@ function Symbols() {
             })
     }
 
+    function onChangeSelectQuote(event) {
+        setQuote(event.target.value);
+        setDefaultQuote(event.target.value);
+    }
+
     return (
         <React.Fragment>
             <Menu />
-            
+
             <main className="content">
-            <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+
+                <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
                     <div className="d-block mb-4 mb-md-0">
                         <h1 className="h4">Symbols</h1>
                     </div>
@@ -69,6 +77,10 @@ function Symbols() {
                                             <h2 className="fs-5 fw-bold mb-0">
                                                 Info about symbols config
                                             </h2>
+                                        </div>
+
+                                        <div className="col">
+                                            <SelectQuote onChange={onChangeSelectQuote} />
                                         </div>
 
                                     </div>
@@ -99,7 +111,7 @@ function Symbols() {
                                                         <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-xs" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                                                         </svg>
-                                                       {isSyncing ? ' Syncing...' :  ' Sync'}
+                                                        {isSyncing ? ' Syncing...' : ' Sync'}
                                                     </button>
                                                 </td>
                                                 <td>
@@ -124,6 +136,9 @@ function Symbols() {
                 </div>
 
             </main>
+
+            <SymbolModal />
+
         </React.Fragment>
     )
 };
