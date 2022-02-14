@@ -15,6 +15,13 @@ function Symbols() {
     const [quote, setQuote] = useState(getDefaultQuote());
     const [success, setSuccess] = useState('');
     const [isSyncing, setIsSyncing] = useState(false);
+    const [editSymbol, setEditSymbol] = useState({
+        basePrecision: 0,
+        quotePrecision: 0,
+        symbol: '',
+        minNotional: '',
+        minLoteSize: ''
+    });
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -53,6 +60,16 @@ function Symbols() {
     function onChangeSelectQuote(event) {
         setQuote(event.target.value);
         setDefaultQuote(event.target.value);
+    }
+
+    function onEditSymbol(event){
+        const symbol = event.target.id.replace('edit', '');
+        const symbolObj = symbols.find(s => s.symbol === symbol);
+
+        console.log('symbol:', symbol);
+        console.log('symbolObj:', symbolObj);
+
+        setEditSymbol(symbolObj);
     }
 
     return (
@@ -100,7 +117,7 @@ function Symbols() {
                                         <tbody>
                                             {
                                                 symbols.map(item =>
-                                                    <SymbolRow key={item.symbol} data={item} />
+                                                    <SymbolRow key={item.symbol} data={item} onClick={onEditSymbol}  />
                                                 )
                                             }
                                         </tbody>
@@ -137,7 +154,7 @@ function Symbols() {
 
             </main>
 
-            <SymbolModal />
+            <SymbolModal data={editSymbol} />
 
         </React.Fragment>
     )
