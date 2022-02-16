@@ -10,7 +10,7 @@ function getSymbol(symbol) {
 
 async function updateSymbol(symbol, newSymbol) {
     const currentSymbol = await getSymbol(symbol);
-    
+
     if (newSymbol.basePrecision && currentSymbol.basePrecision !== newSymbol.basePrecision)
         currentSymbol.basePrecision = newSymbol.basePrecision;
 
@@ -23,18 +23,24 @@ async function updateSymbol(symbol, newSymbol) {
     if (newSymbol.minLoteSize && currentSymbol.minLoteSize !== newSymbol.minLoteSize)
         currentSymbol.minLoteSize = newSymbol.minLoteSize;
 
-    if (newSymbol.isFavorite !== null && newSymbol.isFavorite !== undefined 
+    if (newSymbol.base && currentSymbol.base !== newSymbol.base)
+        currentSymbol.base = newSymbol.base;
+
+    if (newSymbol.quote && currentSymbol.quote !== newSymbol.quote)
+        currentSymbol.quote = newSymbol.quote;
+
+    if (newSymbol.isFavorite !== null && newSymbol.isFavorite !== undefined
         && currentSymbol.isFavorite !== newSymbol.isFavorite)
         currentSymbol.isFavorite = newSymbol.isFavorite;
 
     await currentSymbol.save();
 }
 
-async function deleteAll(){
-    return symbolModel.destroy({truncate: true});
+async function deleteAll() {
+    return symbolModel.destroy({ truncate: true });
 }
 
-async function bulkInsert(symbols){
+async function bulkInsert(symbols) {
     return symbolModel.bulkCreate(symbols);
 }
 

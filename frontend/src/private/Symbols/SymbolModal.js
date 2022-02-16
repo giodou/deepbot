@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
+import { updateSymbol } from '../../services/SymbolsService';
 
 /**
  * props:
  * -data
+ * -onSubmit
  */
 function SymbolModal(props) {
 
@@ -14,25 +16,34 @@ function SymbolModal(props) {
     useEffect(() => {
         if (!props.data)
             return;
-    
-        console.log('Modals received symbol: ', props.data);
 
         setSymbol(props.data);
     }, [props.data])
 
     function onSubmit(event) {
+        event.preventDefault();
+        const token = localStorage.getItem('token');
 
+        updateSymbol(symbol, token)
+            .then(res => {
+                setError('');
+                props.onSubmit();
+                btnClose.current.click();
+            })
+            .catch(err => {
+                setError(err.response ? err.response.data : err.message);
+            })
     }
 
     function onInputChange(event) {
         setSymbol(prevState => ({ ...prevState, [event.target.id]: event.target.value }));
     }
 
-    function getStarFillColor(){
+    function getStarFillColor() {
         return symbol.isFavorite ? "yellow" : "white";
     }
 
-    function onFavoriteClick(event){
+    function onFavoriteClick(event) {
         setSymbol(prevState => ({ ...prevState, isFavorite: !symbol.isFavorite }));
     }
 
@@ -42,7 +53,7 @@ function SymbolModal(props) {
                 <div className="modal-content">
                     <div className="modal-header">
                         <p className="modal-title" id="modalTitleNotify">Edit Symbol</p>
-                        <button  ref={btnClose} type="button" className="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                        <button ref={btnClose} type="button" className="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
                     </div>
                     <form onSubmit={onSubmit}>
                         <div className="modal-body">
@@ -97,19 +108,19 @@ function SymbolModal(props) {
                                 </div>
                             </div>
                         </div>
+                        <div className="modal-footer">
+                            {
+                                error
+                                    ? <div className="alert alert-danger mt-2 col-9 py-2">{error}</div>
+                                    : <React.Fragment></React.Fragment>
+                            }
+
+
+                            <button type="submit" className="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalSymbol">
+                                Save
+                            </button>
+                        </div>
                     </form>
-                    <div className="modal-footer">
-                        {
-                            error
-                                ? <div className="alert alert-danger mt-2 col-9 py-2">{error}</div>
-                                : <React.Fragment></React.Fragment>
-                        }
-
-
-                        <button type="submit" className="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalSymbol">
-                            Save
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>

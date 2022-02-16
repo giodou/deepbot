@@ -31,8 +31,27 @@ async function updateSettings(id, newSettings) {
     await currentSettings.save();
 }
 
+const settingsCache = {};
+async function getDecriptedSettings(id){
+    let settings = settingsCache[id];
+
+    if(!settings){
+        settings = await getSettingsById(id);
+        settings.secretKey = crypto.decrypt(settings.secretKey);
+        settingsCache[id] = settings;
+    }
+
+    return settings;
+}
+
+function cleanSettingsCache(id){
+    settingsCache[id] = null;
+}
+
 module.exports = {
     getSettingsByEmail,
     getSettingsById,
-    updateSettings
+    updateSettings,
+    getDecriptedSettings,
+    cleanSettingsCache
 }

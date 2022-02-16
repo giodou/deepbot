@@ -23,7 +23,7 @@ function Symbols() {
         minLoteSize: ''
     });
 
-    useEffect(() => {
+    function loadSymbols(){
         const token = localStorage.getItem('token');
         getSymbols(token)
             .then(response => {
@@ -37,6 +37,10 @@ function Symbols() {
                 setSuccess('');
                 setError(err.response ? err.response.data : err.message);
             })
+    }
+
+    useEffect(() => {
+        loadSymbols();
     }, [isSyncing, quote]);
 
     function onSyncClick(event) {
@@ -70,6 +74,10 @@ function Symbols() {
         console.log('symbolObj:', symbolObj);
 
         setEditSymbol(symbolObj);
+    }
+
+    function onSubmitModal(){
+        loadSymbols();
     }
 
     return (
@@ -154,7 +162,7 @@ function Symbols() {
 
             </main>
 
-            <SymbolModal data={editSymbol} />
+            <SymbolModal data={editSymbol} onSubmit={onSubmitModal}  />
 
         </React.Fragment>
     )

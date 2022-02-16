@@ -16,7 +16,12 @@ export async function getSymbol(symbol, token) {
 
 export async function syncSymbols(token) {
     const headers = { 'authorization': token };
-    console.log('tok:', token);
     const response = await axios.post(`${SYMBOLS_URL}/sync`, {}, { headers });
+    return response.data;
+}
+
+export async function updateSymbol(symbol, token) {
+    const headers = { 'authorization': token };
+    const response = await axios.patch(`${SYMBOLS_URL}/${symbol.symbol}`, symbol, { headers });
     return response.data;
 }
