@@ -1,6 +1,17 @@
 const database = require('./db')
 const app = require('./app');
+const settingsRepository = require('./repositories/settingsRepository');
+const appEm = require('./app-em');
 
-app.listen(process.env.PORT, () => {
-    console.log(`Deepbot's backend is runing at PORT:${process.env.PORT}`);
-})
+settingsRepository.getSettingsById(1)
+    .then(settings => {
+        appEm(settings);
+
+        app.listen(process.env.PORT, () => {
+            console.log(`Deepbot's backend is runing at PORT:${process.env.PORT}`);
+        })
+    })
+    .catch(err => {
+        console.error(err);
+    })
+
