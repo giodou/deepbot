@@ -25,7 +25,7 @@ function Settings() {
             .then(settings => {
                 inputEmail.current.value = settings.email;
                 inputApiUrl.current.value = settings.apiUrl;
-                // inputStreamUrl.current.value = settings.streamUrl;
+                inputStreamUrl.current.value = settings.streamUrl;
                 inputAccessKey.current.value = settings.acessKey;
             })
             .catch(err => {
@@ -48,7 +48,7 @@ function Settings() {
             email: inputEmail.current.value,
             password: inputNewPassword.current.value ? inputNewPassword.current.value : null,
             apiUrl: inputApiUrl.current.value,
-            // streamUrl: inputStreamUrl.current.value,
+            streamUrl: inputStreamUrl.current.value,
             acessKey: inputAccessKey.current.value,
             secretKey: inputSecretKey.current.value ? inputSecretKey.current.value : null
         }, token)

@@ -22,4 +22,4 @@ module.exports = (server) => {
     wss.on('connection', onConnection);
     console.log(`WebSocket server is runnig!`);
     return wss;
-}55595
+}

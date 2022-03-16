@@ -1,17 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import Menu from "../../components/Menu/Menu";
+import LineChart from "./LineChart";
+import MiniTicker from "./MiniTicker/MiniTicker";
+import BookTicker from "./BookTicker/BookTicker";
+
+import useWebSocket from 'react-use-websocket';
 
 function Dashboard() {
+
+    const [miniTickerState, setMiniTickerState] = useState({});
+    const [bookState, setBookState] = useState({});
+
+    const { lastJsonMessage } = useWebSocket(process.env.REACT_APP_WS_URL, {
+        onOpen: () => console.log(`Connected on WebSocket server`),
+        onMessage: () => {
+            if (lastJsonMessage) {
+                if (lastJsonMessage.miniTicker) setMiniTickerState(lastJsonMessage.miniTicker);
+                if (lastJsonMessage.book) {
+                    lastJsonMessage.book.forEach(bookItem => bookState[bookItem.symbol] = bookItem);
+                    setBookState(bookState);
+                }
+            }
+        },
+        queryParams: {},
+        onError: (err) => console.log(err),
+        shouldReconnect: (closeEvent) => true,
+        reconnectInterval: 3000
+    })
+
+
     return (
         <React.Fragment>
             <Menu />
-            <main>
-                <section className="vh-lg-100 mt-5 mt-lg-0 bg-soft d-flex align-items-center">
-                    <div className="container">
-                        
+            <main className="content">
+                <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+                    <div className="d-block mb-4 mb-md-0">
+                        <h1 className="h4">Dashboard</h1>
                     </div>
+                </div>
 
-                </section>
+                <LineChart />
+                <MiniTicker data={miniTickerState} />
+
+                <div className="row">
+                    <BookTicker data={bookState} />
+                </div>
+
             </main>
         </React.Fragment>
     );

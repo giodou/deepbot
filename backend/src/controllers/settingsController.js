@@ -15,8 +15,6 @@ async function updateSettings(req, res, next){
     res.sendStatus(200);
 }
 
-
-
 module.exports = {
     getSettings,
     updateSettings

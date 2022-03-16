@@ -30,6 +30,10 @@ export function getDefaultQuote() {
     return localStorage.getItem(DEFAULT_QUOTE_PROPERTY) ? localStorage.getItem(DEFAULT_QUOTE_PROPERTY) : "USD";
 }
 
+export function filterSymbolNames(symbols, quote) {
+    return filterSymbolObject(symbols, quote).map(s => s.symbol);
+}
+
 export function filterSymbolObject(symbols, quote) {
     return symbols.filter(s => {
         if (quote === 'ALL')

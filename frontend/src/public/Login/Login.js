@@ -24,7 +24,7 @@ function Login() {
         doLogin(email, pass)
             .then(response => {
                 localStorage.setItem('token', response.token);
-                history.push('/settings');
+                history.push('/dashboard');
             }).catch(err =>{
                 localStorage.removeItem('token');
                 console.log(err);

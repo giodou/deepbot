@@ -13,6 +13,7 @@ module.exports = {
       return queryInterface.bulkInsert('settings', [{
         email: 'giovane.negocios@gmail.com',
         pass: bcrypt.hashSync('123456'),
+        streamUrl: 'wss://testnet.binance.vision/ws',
         apiUrl: 'https://testnet.binance.vision/api',
         acessKey: 'GTtZqLhzfBvRHngGK6fGVOVOp30nM8XKKebdw6O9WVqCjZ45rffACcf2xbzuwVq8',
         secretKey: crypto.encrypt('E1lZ670DflSDaAFSPoFYh13P3STpJ1ZJLp81bjTqoozbPO5ceEFwHZH6kUm58Icf'),

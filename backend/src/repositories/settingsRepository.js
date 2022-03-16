@@ -23,6 +23,9 @@ async function updateSettings(id, newSettings) {
     if (currentSettings.apiUrl !== newSettings.apiUrl)
         currentSettings.apiUrl = newSettings.apiUrl;
 
+    if (currentSettings.streamUrl !== newSettings.streamUrl)
+        currentSettings.streamUrl = newSettings.streamUrl;
+
     if (currentSettings.acessKey !== newSettings.acessKey)
         currentSettings.acessKey = newSettings.acessKey;
 
@@ -36,10 +39,10 @@ async function updateSettings(id, newSettings) {
 }
 
 const settingsCache = {};
-async function getDecriptedSettings(id){
+async function getDecriptedSettings(id) {
     let settings = settingsCache[id];
 
-    if(!settings){
+    if (!settings) {
         settings = await getSettingsById(id);
         settings.secretKey = crypto.decrypt(settings.secretKey);
         settingsCache[id] = settings;
@@ -48,7 +51,7 @@ async function getDecriptedSettings(id){
     return settings;
 }
 
-function cleanSettingsCache(id){
+function cleanSettingsCache(id) {
     settingsCache[id] = null;
 }
 

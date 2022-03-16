@@ -8,7 +8,8 @@ module.exports = (settings) => {
         API_KEY: settings.acessKey,
         APISECRET: settings.secretKey,
         urls: {
-            base: settings.apiUrl.endsWith('/') ? settings.apiUrl : `${settings.apiUrl}/`
+            base: settings.apiUrl.endsWith('/') ? settings.apiUrl : `${settings.apiUrl}/`,
+            stream: settings.streamUrl.endsWith('/') ? settings.streamUrl : `${settings.streamUrl}/`
         }
     });
 
@@ -20,9 +21,14 @@ module.exports = (settings) => {
         binance.websockets.miniTicker(markets => callback(markets));
     }
 
+    function bookStream(callback){
+        binance.websockets.bookTickers(order => callback(order))
+    }
+
     return {
         exchangeInfo,
-        miniTickerStream
+        miniTickerStream,
+        bookStream
     } 
 
 }

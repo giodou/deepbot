@@ -5,6 +5,7 @@ const SETTINGS_URL = `${process.env.REACT_APP_API_URL}/settings` || 'http://loca
 export async function getSettings(token) {
     const headers = { 'authorization': token };
     const response = await axios.get(SETTINGS_URL, { headers });
+
     return response.data;
 }
 
