@@ -3,6 +3,7 @@ import Menu from "../../components/Menu/Menu";
 import LineChart from "./LineChart";
 import MiniTicker from "./MiniTicker/MiniTicker";
 import BookTicker from "./BookTicker/BookTicker";
+import Wallet from "./Wallet/Wallet";
 
 import useWebSocket from 'react-use-websocket';
 
@@ -10,6 +11,7 @@ function Dashboard() {
 
     const [miniTickerState, setMiniTickerState] = useState({});
     const [bookState, setBookState] = useState({});
+    const [balanceState, setBalanceState] = useState({});
 
     const { lastJsonMessage } = useWebSocket(process.env.REACT_APP_WS_URL, {
         onOpen: () => console.log(`Connected on WebSocket server`),
@@ -20,9 +22,10 @@ function Dashboard() {
                     lastJsonMessage.book.forEach(bookItem => bookState[bookItem.symbol] = bookItem);
                     setBookState(bookState);
                 }
+                if (lastJsonMessage.balance) setBalanceState(lastJsonMessage.balance);
             }
         },
-        queryParams: {},
+        queryParams: {'token': localStorage.getItem('token')},
         onError: (err) => console.log(err),
         shouldReconnect: (closeEvent) => true,
         reconnectInterval: 3000
@@ -41,9 +44,10 @@ function Dashboard() {
 
                 <LineChart />
                 <MiniTicker data={miniTickerState} />
-
+                
                 <div className="row">
                     <BookTicker data={bookState} />
+                    <Wallet data={balanceState} />
                 </div>
 
             </main>
