@@ -10,8 +10,9 @@ function getSettingsById(id) {
     return settingsModel.findOne({ where: { id } });
 }
 
-function getDefaultSettings() {
-    return settingsModel.findOne();
+async function getDefaultSettings() {
+    const settings = await settingsModel.findOne();
+    return getDecriptedSettings(settings.id);
 }
 
 async function updateSettings(id, newSettings) {

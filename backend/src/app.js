@@ -9,6 +9,7 @@ const authMiddleware = require('./middlewares/authMiddleware');
 const morgan = require('morgan');
 const settingsRouter = require('./routers/settingsRouter');
 const symbolsRouter = require('./routers/symbolsRouter');
+const exchangeRouter = require('./routers/exchangeRouter');
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(morgan('dev'));
 
 app.use('/settings', authMiddleware, settingsRouter);
 app.use('/symbols', authMiddleware, symbolsRouter);
+app.use('/exchange', authMiddleware, exchangeRouter);
 
 app.post('/login', authController.doLogin);
 app.post('/logout', authController.doLogout);

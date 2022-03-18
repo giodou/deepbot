@@ -1,5 +1,4 @@
 const symbolsRepository = require('../repositories/symbolsRepository');
-const crypto = require('../utils/crypto');
 
 async function getSymbols(req, res, next) {
     const symbols = await symbolsRepository.getSymbols();
