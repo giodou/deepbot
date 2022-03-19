@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from react;
+import React, { useEffect, useMemo, useState } from "react"
 
+/**
+ * 
+ * @param {*} props 
+ * @returns 
+ */
 function CandleChart(props) {
-    const [widget, setWidget] = useState({})
+    const [widget, setWidget] = useState({});
 
     useEffect(() => {
 
@@ -26,10 +31,21 @@ function CandleChart(props) {
         setWidget(w);
     }, [props.symbol])
 
+    const widgetHtml = useMemo(() => (
+        <div className="row">
+            <div className="col-12 mb-4">
+                <div className="card cardDark border-0 shadow">
+                    <div className="card-body p-2">
+                        <div className="tradingview-widget-container">
+                            <div id="tradingview" className="divTradingView"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    ), [props.symbol])
 
-    return (
-        <React.Fragment />
-    )
+    return widgetHtml;
 }
 
 export default CandleChart;
