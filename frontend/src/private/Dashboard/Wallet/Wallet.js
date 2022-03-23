@@ -5,6 +5,8 @@ import '../Dashboard.css';
 
 /**
  * props:
+ * -data
+ * -onUpdate
  */
 function Wallet(props) {
     const history = useHistory();
@@ -25,6 +27,7 @@ function Wallet(props) {
                     }
                 })
 
+                if (props.onUpdate) props.onUpdate(balances);
                 setBalances(balances)
             })
             .catch(err => {
@@ -60,8 +63,8 @@ function Wallet(props) {
                                     ? balances.map(item => (
                                         <tr key={item.symbol}>
                                             <td className="text-gray-900">{item.symbol}</td>
-                                            <td className="text-gray-900">{item.available.substring(0,8)}</td>
-                                            <td className="text-gray-900">{item.onOrder.substring(0,8)}</td>
+                                            <td className="text-gray-900">{item.available.substring(0, 8)}</td>
+                                            <td className="text-gray-900">{item.onOrder.substring(0, 8)}</td>
                                         </tr>
                                     ))
                                     : <React.Fragment></React.Fragment>
